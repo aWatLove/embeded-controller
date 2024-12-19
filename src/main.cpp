@@ -11,7 +11,7 @@
 void sendMessage() ; // чтобы PlatformIO работал
 
 Scheduler userScheduler; // для управления задачами
-Task taskSendMessage (TASK_SECOND * 0.5, TASK_FOREVER, & sendMessage);
+Task taskSendMessage (TASK_SECOND * 0.2, TASK_FOREVER, & sendMessage);
 painlessMesh  mesh;
 
 
@@ -178,6 +178,8 @@ void setup() {
 }
 
 void loop() {
+mesh.update ();
+
   loopEncoder();
   
   // джойстик
@@ -233,7 +235,7 @@ void sendMessage() {
   
   msg += mesh.getNodeId();
 
-  mesh.sendBroadcast( msg ); // отправка сообщения
+  mesh.sendBroadcast( formattedString ); // отправка сообщения
 }
 
 void loopEncoder() {
